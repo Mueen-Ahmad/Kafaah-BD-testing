@@ -8,16 +8,6 @@ import App from './App'
 import './index.css'
 import 'katex/dist/katex.min.css'
 
-// GitHub Pages redirect handling
-;(() => {
-  const redirect = sessionStorage.getItem('redirect')
-  if (redirect) {
-    sessionStorage.removeItem('redirect')
-    const fullPath = window.location.origin + redirect
-    window.history.replaceState(null, '', fullPath)
-  }
-})()
-
 const basename = '/'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(

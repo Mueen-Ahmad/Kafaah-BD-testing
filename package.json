@@ -2,7 +2,6 @@
   "name": "kafaahbd",
   "private": true,
   "version": "1.0.0",
-  "homepage": "https://kafaahbd.github.io/kafaah",
   "type": "module",
   "scripts": {
     "dev": "vite",
