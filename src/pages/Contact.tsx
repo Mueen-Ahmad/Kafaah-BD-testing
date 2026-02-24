@@ -8,9 +8,9 @@ const Contact = () => {
   const { t } = useLanguage()
 
   const contactInfo = [
-    { icon: <Mail size={24} />, label: "Email", value: "contact@kafaah.com", color: "bg-emerald-500" },
-    { icon: <Phone size={24} />, label: "Phone", value: "+880 123456789", color: "bg-teal-500" },
-    { icon: <MapPin size={24} />, label: "Address", value: "Dhaka, Bangladesh", color: "bg-blue-500" },
+    { icon: <Mail size={24} />, label: "Email", value: "tanvirishrak04@gmail.com", color: "bg-emerald-500" },
+    { icon: <Phone size={24} />, label: "Phone", value: "01770676700", color: "bg-teal-500" },
+    { icon: <MapPin size={24} />, label: "Address", value: "Rajshahi", color: "bg-blue-500" },
   ]
 
   return (
@@ -54,7 +54,7 @@ const Contact = () => {
               <h2 className="text-3xl font-bold mb-4">Send us a Message</h2>
               <p className="text-emerald-50 mb-8">Our team will get back to you within 24 hours InShaAllah.</p>
               <a
-                href="mailto:contact@kafaah.com"
+                href="mailto:tanvirishrak04@gmail.com"
                 className="inline-block px-12 py-4 bg-white text-emerald-600 rounded-full font-bold text-lg hover:shadow-xl transition-all transform hover:-translate-y-1"
               >
                 Email Us Now

@@ -69,19 +69,19 @@ const Signup = () => {
   }
 
   return (
-    <div className="min-h-screen pt-24 pb-12 flex flex-col items-center justify-center px-4 bg-slate-50">
+    <div className="min-h-screen pt-24 pb-12 flex flex-col items-center justify-center px-4 bg-slate-50 dark:bg-slate-900 transition-colors duration-300">
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="w-full max-w-md bg-white rounded-2xl shadow-xl p-8 border border-slate-100"
+        className="w-full max-w-md bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-8 border border-slate-100 dark:border-slate-700 transition-colors duration-300"
       >
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-slate-900 mb-2">নতুন অ্যাকাউন্ট</h1>
-          <p className="text-slate-500">আমাদের সাথে যুক্ত হোন</p>
+          <h1 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">নতুন অ্যাকাউন্ট</h1>
+          <p className="text-slate-500 dark:text-slate-400">আমাদের সাথে যুক্ত হোন</p>
         </div>
 
         {error && (
-          <div className="mb-6 p-4 bg-red-50 border border-red-100 rounded-xl flex items-start gap-3 text-red-600 text-sm">
+          <div className="mb-6 p-4 bg-red-50 dark:bg-red-900/20 border border-red-100 dark:border-red-800 rounded-xl flex items-start gap-3 text-red-600 dark:text-red-400 text-sm">
             <AlertCircle className="w-5 h-5 shrink-0" />
             <p>{error}</p>
           </div>
@@ -89,7 +89,7 @@ const Signup = () => {
 
         <form onSubmit={handleSignup} className="space-y-6">
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-2">পুরো নাম</label>
+            <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">পুরো নাম</label>
             <div className="relative">
               <User className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
               <input
@@ -97,14 +97,14 @@ const Signup = () => {
                 required
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
-                className="w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all"
+                className="w-full pl-11 pr-4 py-3 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all text-slate-900 dark:text-white placeholder-slate-400"
                 placeholder="আপনার নাম"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-2">ইমেইল</label>
+            <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">ইমেইল</label>
             <div className="relative">
               <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
               <input
@@ -112,14 +112,14 @@ const Signup = () => {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all"
+                className="w-full pl-11 pr-4 py-3 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all text-slate-900 dark:text-white placeholder-slate-400"
                 placeholder="example@mail.com"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-2">পাসওয়ার্ড</label>
+            <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">পাসওয়ার্ড</label>
             <div className="relative">
               <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
               <input
@@ -128,7 +128,7 @@ const Signup = () => {
                 minLength={6}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all"
+                className="w-full pl-11 pr-4 py-3 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all text-slate-900 dark:text-white placeholder-slate-400"
                 placeholder="কমপক্ষে ৬ অক্ষরের পাসওয়ার্ড"
               />
             </div>
@@ -147,16 +147,16 @@ const Signup = () => {
         <div className="mt-6">
           <div className="relative mb-6">
             <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-slate-200"></div>
+              <div className="w-full border-t border-slate-200 dark:border-slate-700"></div>
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="px-2 bg-white text-slate-500">অথবা</span>
+              <span className="px-2 bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400">অথবা</span>
             </div>
           </div>
 
           <button
             onClick={handleGoogleLogin}
-            className="w-full py-3 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 font-semibold rounded-xl transition-all flex items-center justify-center gap-3"
+            className="w-full py-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 font-semibold rounded-xl transition-all flex items-center justify-center gap-3"
           >
             <svg className="w-5 h-5" viewBox="0 0 24 24">
               <path
@@ -180,7 +180,7 @@ const Signup = () => {
           </button>
         </div>
 
-        <div className="mt-8 text-center text-slate-600">
+        <div className="mt-8 text-center text-slate-600 dark:text-slate-400">
           ইতিমধ্যেই অ্যাকাউন্ট আছে?{' '}
           <Link to="/login" className="text-emerald-600 font-semibold hover:underline">
             লগইন করুন

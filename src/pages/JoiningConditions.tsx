@@ -54,6 +54,18 @@ const JoiningConditions = () => {
             </div>
           )}
         </div>
+        <div className="mt-12 text-center">
+          <motion.a
+            href="https://docs.google.com/forms/d/e/1FAIpQLScM3Usiy57D08kuVwDl__6vaR6YjRTCrIvGoCFH_U5wwF8kKw/viewform"
+            target="_blank"
+            rel="noopener noreferrer"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="inline-block px-10 py-4 bg-emerald-600 hover:bg-emerald-700 text-white rounded-full font-bold shadow-lg shadow-emerald-500/20 transition-all text-lg"
+          >
+            {lang === 'bn' ? 'এখনই যুক্ত হোন' : 'Join Now'}
+          </motion.a>
+        </div>
       </div>
     </div>
   )

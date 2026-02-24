@@ -77,15 +77,15 @@ const Footer = () => {
             <h4 className="text-slate-900 dark:text-white font-semibold mb-6 uppercase tracking-wider text-xs">{t('footer.contact')}</h4>
             <div className="flex items-start space-x-3 text-slate-600 dark:text-slate-400 text-sm">
               <MapPin size={18} className="text-emerald-500 shrink-0" />
-              <span>Dhaka, Bangladesh</span>
+              <span>Rajshahi</span>
             </div>
             <div className="flex items-center space-x-3 text-slate-600 dark:text-slate-400 text-sm">
               <Phone size={18} className="text-emerald-500 shrink-0" />
-              <span>+880 123456789</span>
+              <span>01770676700</span>
             </div>
             <div className="flex items-center space-x-3 text-slate-600 dark:text-slate-400 text-sm">
               <Mail size={18} className="text-emerald-500 shrink-0" />
-              <span>contact@kafaah.com</span>
+              <span>tanvirishrak04@gmail.com</span>
             </div>
           </div>
         </div>

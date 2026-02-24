@@ -1,25 +1,34 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'motion/react'
-import { BookOpen, Code, Globe, Shield, Zap, Users, ArrowRight, Quote } from 'lucide-react'
+import { BookOpen, Code, Globe, Shield, Zap, Users, ArrowRight, Quote, RefreshCw } from 'lucide-react'
 import { useLanguage } from '../contexts/LanguageContext'
 import { Helmet } from 'react-helmet-async'
 import ScrollAnimation from '../components/ScrollAnimation'
 
 const Home = () => {
   const { t, lang } = useLanguage()
-  const [ayat, setAyat] = useState<{ text: string; surah: string } | null>(null)
+  const [ayat, setAyat] = useState<{ arabic: string; translation: string; surah: string; surahEn: string; number: number } | null>(null)
   const [loadingAyat, setLoadingAyat] = useState(true)
 
   const fetchAyat = async () => {
     setLoadingAyat(true)
     try {
       const randomAyat = Math.floor(Math.random() * 6236) + 1
-      const res = await fetch(`https://api.alquran.cloud/v1/ayah/${randomAyat}/en.asad`)
+      // Fetch Arabic (quran-uthmani) and Translation (bn.bengali or en.asad)
+      const edition = lang === 'bn' ? 'bn.bengali' : 'en.asad'
+      const res = await fetch(`https://api.alquran.cloud/v1/ayah/${randomAyat}/editions/quran-uthmani,${edition}`)
       const data = await res.json()
+      
+      const arabicData = data.data[0]
+      const translationData = data.data[1]
+
       setAyat({
-        text: data.data.text,
-        surah: `${data.data.surah.englishName} ${data.data.surah.number}:${data.data.numberInSurah}`
+        arabic: arabicData.text,
+        translation: translationData.text,
+        surah: translationData.surah.englishName, // Always show English name as per design "An-Nas"
+        surahEn: translationData.surah.englishName,
+        number: translationData.numberInSurah
       })
     } catch (error) {
       console.error("Error fetching ayat:", error)
@@ -30,7 +39,7 @@ const Home = () => {
 
   useEffect(() => {
     fetchAyat()
-  }, [])
+  }, [lang]) // Refetch when language changes
 
   const services = [
     { icon: <Code size={24} />, title: t('home.services.software'), desc: "Custom web and mobile solutions tailored for your needs." },
@@ -104,38 +113,58 @@ const Home = () => {
 
       {/* Quran Ayat Section */}
       <section className="py-24 bg-slate-50 dark:bg-slate-900/50 relative">
-        <div className="max-w-4xl mx-auto px-4 text-center">
+        <div className="max-w-4xl mx-auto px-4">
           <ScrollAnimation>
-            <div className="inline-block p-3 rounded-2xl bg-emerald-500/10 text-emerald-600 mb-8">
-              <Quote size={32} />
-            </div>
-            <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-8">
-              {lang === 'bn' ? 'আজকের আয়াত' : 'Today\'s Ayat'}
-            </h2>
-            <div className="min-h-[150px] flex flex-col justify-center">
-              {loadingAyat ? (
-                <p className="text-slate-500 animate-pulse">{lang === 'bn' ? 'আয়াত লোড হচ্ছে...' : 'Loading Ayat...'}</p>
-              ) : (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  key={ayat?.text}
+            <div className="bg-slate-900 rounded-[2rem] p-12 text-center shadow-2xl relative overflow-hidden border border-slate-800">
+              {/* Background Pattern */}
+              <div className="absolute top-0 left-0 w-full h-full opacity-5 pointer-events-none">
+                <div className="absolute top-0 left-0 w-64 h-64 bg-emerald-500 rounded-full blur-[100px]"></div>
+                <div className="absolute bottom-0 right-0 w-64 h-64 bg-teal-500 rounded-full blur-[100px]"></div>
+              </div>
+
+              <div className="relative z-10">
+                <h2 className="text-3xl md:text-4xl font-bold text-emerald-500 mb-2">
+                  {lang === 'bn' ? 'আজকের আয়াত' : 'Today\'s Ayat'}
+                </h2>
+                <div className="w-24 h-1 bg-emerald-500 mx-auto rounded-full mb-12"></div>
+
+                <div className="min-h-[200px] flex flex-col justify-center">
+                  {loadingAyat ? (
+                    <div className="flex flex-col items-center gap-4">
+                      <div className="w-12 h-12 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin"></div>
+                      <p className="text-slate-400 animate-pulse">{lang === 'bn' ? 'আয়াত লোড হচ্ছে...' : 'Loading Ayat...'}</p>
+                    </div>
+                  ) : (
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      key={ayat?.arabic}
+                      className="space-y-8"
+                    >
+                      <p className="text-3xl md:text-5xl font-serif text-white leading-[1.6] md:leading-[1.8] font-medium" style={{ fontFamily: "'Amiri', serif" }}>
+                        {ayat?.arabic}
+                      </p>
+                      
+                      <p className="text-emerald-500 font-bold tracking-widest uppercase text-sm md:text-base">
+                        {ayat?.surahEn} - {ayat?.number}
+                      </p>
+
+                      <p className="text-lg md:text-xl text-slate-300 leading-relaxed max-w-2xl mx-auto">
+                        {ayat?.translation}
+                      </p>
+                    </motion.div>
+                  )}
+                </div>
+
+                <button
+                  onClick={fetchAyat}
+                  className="mt-12 px-8 py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-full font-bold transition-all flex items-center gap-2 mx-auto shadow-lg shadow-emerald-500/20 hover:shadow-emerald-500/30 transform hover:-translate-y-1"
                 >
-                  <p className="text-2xl md:text-3xl font-serif text-slate-800 dark:text-slate-200 leading-relaxed mb-6">
-                    "{ayat?.text}"
-                  </p>
-                  <p className="text-emerald-600 font-bold tracking-widest uppercase text-sm">
-                    — {ayat?.surah}
-                  </p>
-                </motion.div>
-              )}
+                  <RefreshCw size={20} />
+                  {lang === 'bn' ? 'নতুন আয়াত' : 'Next Ayat'}
+                </button>
+              </div>
             </div>
-            <button
-              onClick={fetchAyat}
-              className="mt-10 text-sm font-bold text-slate-500 hover:text-emerald-500 transition-colors uppercase tracking-widest"
-            >
-              {lang === 'bn' ? 'নতুন আয়াত' : 'Next Ayat'}
-            </button>
           </ScrollAnimation>
         </div>
       </section>
